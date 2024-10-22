@@ -1,12 +1,10 @@
 #include "monty.h"
 
-// Main interpreter loop
 void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
-		// Add other opcodes here
 		{NULL, NULL}
 	};
 
