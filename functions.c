@@ -11,20 +11,19 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *arg = strtok(NULL, " \n");  // Get the next token after the opcode
+	char *arg = strtok(NULL, " \n");
 	int n;
 
-	if (arg == NULL || !is_number(arg))  // Check for valid argument
+	if (arg == NULL || !is_number(arg))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	n = atoi(arg);  // Convert the argument to an integer
+	n = atoi(arg);
 
-	// Create a new node
 	stack_t *new_node = malloc(sizeof(stack_t));
-	if (new_node == NULL)  // Check for memory allocation failure
+	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
@@ -32,14 +31,14 @@ void push(stack_t **stack, unsigned int line_number)
 
 	new_node->n = n;
 	new_node->prev = NULL;
-	new_node->next = *stack;  // Point to the current top of the stack
+	new_node->next = *stack;
 
-	if (*stack != NULL)  // Update the previous pointer of the current top
+	if (*stack != NULL)
 	{
 		(*stack)->prev = new_node;
 	}
 	
-	*stack = new_node;  // Update the stack head to the new node
+	*stack = new_node;
 }
 
 /**
@@ -49,12 +48,12 @@ void push(stack_t **stack, unsigned int line_number)
  */
 void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 {
-	stack_t *current = *stack;  // Start from the top of the stack
+	stack_t *current = *stack;
 
-	while (current)  // Traverse the stack
+	while (current)
 	{
 		printf("%d\n", current->n);
-		current = current->next;  // Move to the next node
+		current = current->next;
 	}
 }
 
@@ -65,15 +64,15 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
  */
 int is_number(const char *str)
 {
-	if (*str == '-' || *str == '+')  // Allow optional sign
+	if (*str == '-' || *str == '+')
 		str++;
 
-	while (*str)  // Check each character
+	while (*str)
 	{
-		if (!isdigit(*str))  // Not a digit
+		if (!isdigit(*str))
 			return 0;
 		str++;
 	}
-	return 1;  // Valid integer
+	return 1;
 }
 
